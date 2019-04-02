@@ -3,17 +3,17 @@ using System.Buffers;
 
 namespace TrickyCSharp.OptimizeAllocation
 {
-    public class AllocationTempArray
+    public static class AllocationTempArray
     {
         
         // Allocation on HEAP
-        public char[] CreateBuffer(uint count)
+        public static char[] CreateBuffer(uint count)
         {
             return new char[count];
         }
         
         //Allocation on STACK
-        public void CreateBufferOnStack(int count)
+        public static void CreateBufferOnStack(int count)
         {
             char[] pool = null;
             Span<char> span = count <= 512
@@ -26,7 +26,7 @@ namespace TrickyCSharp.OptimizeAllocation
         }
         
         //Allocation array - most popular pattern - mixed on heap and stack
-        public void CreateBufferOnStackOrHeapDependOnSize(int size)
+        public static void CreateBufferOnStackOrHeapDependOnSize(int size)
         {
             Span<char> spanBuffer = size <= 512 ? stackalloc char[512] : new char[size];
         }
