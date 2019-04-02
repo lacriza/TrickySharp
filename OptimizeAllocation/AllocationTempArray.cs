@@ -24,5 +24,11 @@ namespace TrickyCSharp.OptimizeAllocation
                 ArrayPool<char>.Shared.Return(pool);
             }
         }
+        
+        //Allocation array - most popular pattern - mixed on heap and stack
+        public void CreateBufferOnStackOrHeapDependOnSize(int size)
+        {
+            Span<char> spanBuffer = size <= 512 ? stackalloc char[512] : new char[size];
+        }
     }
 }
